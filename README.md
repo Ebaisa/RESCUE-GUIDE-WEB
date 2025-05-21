@@ -1,6 +1,6 @@
-# EBA Healthcare Frontend
+# RESCUE GUIDE MOBILE APP
 
-This is the frontend application for the Emergency Bed Allocation (EBA) Healthcare system. It provides a user interface for hospitals to manage their bed availability and for users to find available emergency beds.
+This is the website  for that enhance Emergency Response.  It provides a user interface for hospitals to manage SOS alerts and emergency situations.
 
 ## Prerequisites
 
@@ -42,17 +42,15 @@ The build output will be in the `dist` directory.
 ## Features
 
 - Hospital Registration and Login
-- User Registration and Login
+- Hospital Dashboard
 - Admin Dashboard
-- Real-time Bed Availability Management
+- SOS ALERT Management
 - Emergency Service Requests
 - Responsive Design
 
-## API Integration
 
-The application integrates with the EBA Healthcare backend API hosted at:
-```
-https://eba.onrender.com
+
+
 ```
 
 ## Project Structure
