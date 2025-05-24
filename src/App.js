@@ -8,11 +8,31 @@ import Guidelines from './pages/Guidelines'
 import About from './pages/About'
 import HospitalRegister from './pages/HospitalRegister'
 import HospitalLogin from './pages/HospitalLogin'
+import HospitalDashboard from './pages/HospitalDashboard'
 import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 import UserRegister from './pages/UserRegister'
 import UserLogin from './pages/UserLogin'
 import UserDashboard from './pages/UserDashboard'
+
+// Protected Route Component
+const ProtectedAdminRoute = ({ children }) => {
+  const { adminUser, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <Center h="100vh">
+        <Spinner size="xl" color="blue.500" />
+      </Center>
+    );
+  }
+  
+  if (!adminUser) {
+    return <Navigate to="/admin-login" replace />;
+  }
+  
+  return children;
+};
 
 function AppRoutes() {
   const { loading } = useAuth()
@@ -26,38 +46,79 @@ function AppRoutes() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <Routes>
-          {/* Public routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/guidelines" element={<Guidelines />} />
-          <Route path="/about" element={<About />} />
-          
-          {/* Hospital routes */}
-          <Route path="/hospital-register" element={<HospitalRegister />} />
-          <Route path="/hospital-login" element={<HospitalLogin />} />
-          
-          {/* User routes */}
-          <Route path="/user-register" element={<UserRegister />} />
-          <Route path="/user-login" element={<UserLogin />} />
-          <Route path="/dashboard" element={<UserDashboard />} />
-          
-          {/* Admin routes */}
-          <Route path="/admin">
-            <Route path="login" element={<AdminLogin />} />
-            <Route path="dashboard/*" element={<AdminDashboard />} />
-            {/* Redirect /admin to /admin/login */}
-            <Route index element={<Navigate to="/admin/login" replace />} />
-          </Route>
+    <Routes>
+      {/* Public routes */}
+      <Route path="/" element={
+        <>
+          <Navbar />
+          <Home />
+          <Footer />
+        </>
+      } />
+      <Route path="/guidelines" element={
+        <>
+          <Navbar />
+          <Guidelines />
+          <Footer />
+        </>
+      } />
+      <Route path="/about" element={
+        <>
+          <Navbar />
+          <About />
+          <Footer />
+        </>
+      } />
+      
+      {/* Hospital routes */}
+      <Route path="/hospital-register" element={
+        <>
+          <Navbar />
+          <HospitalRegister />
+          <Footer />
+        </>
+      } />
+      <Route path="/hospital-login" element={
+        <>
+          <Navbar />
+          <HospitalLogin />
+          <Footer />
+        </>
+      } />
+      <Route path="/hospital-dashboard" element={<HospitalDashboard />} />
+      
+      {/* User routes */}
+      <Route path="/user-register" element={
+        <>
+          <Navbar />
+          <UserRegister />
+          <Footer />
+        </>
+      } />
+      <Route path="/user-login" element={
+        <>
+          <Navbar />
+          <UserLogin />
+          <Footer />
+        </>
+      } />
+      <Route path="/dashboard" element={<UserDashboard />} />
+      
+      {/* Admin routes */}
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route 
+        path="/admin" 
+        element={
+          <ProtectedAdminRoute>
+            <AdminDashboard />
+          </ProtectedAdminRoute>
+        } 
+      />
 
-          {/* Redirect /admin-login to /admin/login */}
-          <Route path="/admin-login" element={<Navigate to="/admin/login" replace />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+      {/* Catch-all redirect */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   )
 }
 
