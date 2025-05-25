@@ -12,7 +12,7 @@ function Footer() {
           align="center"
         >
           <Stack direction="row" spacing={2} align="center">
-            <Text>© 2024 EBA Healthcare.</Text>
+            <Text>© 2024 RESCUE GUIDE.</Text>
             <Text>All rights reserved.</Text>
             <Link 
               as={RouterLink} 
