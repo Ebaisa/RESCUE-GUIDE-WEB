@@ -1,4 +1,4 @@
-# RESCUE GUIDE MOBILE APP
+# RESCUE GUIDE
 
 This is the website  for that enhance Emergency Response.  It provides a user interface for hospitals to manage SOS alerts and emergency situations.
 
